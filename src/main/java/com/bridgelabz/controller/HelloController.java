@@ -1,5 +1,6 @@
 package com.bridgelabz.controller;
 
+import com.bridgelabz.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,14 @@ public class HelloController {
     public String sayHelloWithPathVariable(@PathVariable String name) {
         logger.debug("UC3: sayHelloWithPathVariable called with name={}", name);
         return "Hello " + name + "!";
+    }
+
+    // UC4: curl -X POST -H "Content-Type: application/json"
+    //      -d '{"firstName": "Mark","lastName": "Taylor"}'
+    //      "http://localhost:8080/hello/post" -w "\n"
+    @PostMapping("/post")
+    public String sayHelloWithBody(@RequestBody UserDTO user) {
+        logger.debug("UC4: sayHelloWithBody called with {} {}", user.getFirstName(), user.getLastName());
+        return "Hello " + user.getFirstName() + " " + user.getLastName() + "!";
     }
 }
