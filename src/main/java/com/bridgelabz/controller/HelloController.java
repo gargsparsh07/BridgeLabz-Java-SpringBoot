@@ -23,4 +23,11 @@ public class HelloController {
         logger.debug("UC2: sayHelloWithQueryParam called with name={}", name);
         return "Hello " + name + "!";
     }
+
+    // UC3: curl localhost:8080/hello/param/Mark -w "\n"
+    @GetMapping("/param/{name}")
+    public String sayHelloWithPathVariable(@PathVariable String name) {
+        logger.debug("UC3: sayHelloWithPathVariable called with name={}", name);
+        return "Hello " + name + "!";
+    }
 }
