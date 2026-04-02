@@ -40,4 +40,13 @@ public class HelloController {
         logger.debug("UC4: sayHelloWithBody called with {} {}", user.getFirstName(), user.getLastName());
         return "Hello " + user.getFirstName() + " " + user.getLastName() + "!";
     }
+
+    // UC5: curl -X PUT localhost:8080/hello/put/Mark?lastName=Taylor -w "\n"
+    @PutMapping("/put/{firstName}")
+    public String sayHelloWithPut(
+            @PathVariable String firstName,
+            @RequestParam(value = "lastName") String lastName) {
+        logger.debug("UC5: sayHelloWithPut called with {}, {}", firstName, lastName);
+        return "Hello " + firstName + " " + lastName + "!";
+    }
 }
