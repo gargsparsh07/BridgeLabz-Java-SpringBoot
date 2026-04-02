@@ -16,4 +16,11 @@ public class HelloController {
         logger.debug("UC1: sayHello called");
         return "Hello from BridgeLabz!!!";
     }
+
+    // UC2: curl localhost:8080/hello/query?name=Mark -w "\n"
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public String sayHelloWithQueryParam(@RequestParam(value = "name") String name) {
+        logger.debug("UC2: sayHelloWithQueryParam called with name={}", name);
+        return "Hello " + name + "!";
+    }
 }
