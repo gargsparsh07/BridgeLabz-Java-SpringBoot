@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/greeting")
 public class GreetingController {
@@ -53,5 +55,12 @@ public class GreetingController {
         return greetingService.findGreetingById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    // UC6: List all greetings
+    @GetMapping("/all")
+    public ResponseEntity<List<GreetingEntity>> listAllGreetings() {
+        logger.debug("UC6: listAllGreetings called");
+        return ResponseEntity.ok(greetingService.listAllGreetings());
     }
 }

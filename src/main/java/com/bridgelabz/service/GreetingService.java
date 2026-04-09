@@ -6,6 +6,7 @@ import com.bridgelabz.repository.IGreetingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,5 +42,10 @@ public class GreetingService {
     // UC5: Find by ID
     public Optional<GreetingEntity> findGreetingById(Long id) {
         return greetingRepo.findById(id);
+    }
+
+    // UC6: List all
+    public List<GreetingEntity> listAllGreetings() {
+        return greetingRepo.findAll();
     }
 }
