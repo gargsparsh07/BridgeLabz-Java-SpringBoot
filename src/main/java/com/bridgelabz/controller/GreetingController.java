@@ -71,4 +71,11 @@ public class GreetingController {
         logger.debug("UC7: editGreeting called with id={}", id);
         return ResponseEntity.ok(greetingService.editGreeting(id, dto));
     }
+
+    // UC8: Delete greeting
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteGreeting(@PathVariable Long id) {
+        logger.debug("UC8: deleteGreeting called with id={}", id);
+        return ResponseEntity.ok(greetingService.deleteGreeting(id));
+    }
 }

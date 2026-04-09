@@ -56,4 +56,10 @@ public class GreetingService {
         entity.setMessage(getGreetingMessage(dto));
         return greetingRepo.save(entity);
     }
+
+    // UC8: Delete greeting
+    public String deleteGreeting(Long id) {
+        greetingRepo.deleteById(id);
+        return "Greeting with id " + id + " deleted successfully";
+    }
 }
