@@ -45,4 +45,13 @@ public class GreetingController {
         logger.debug("UC4: saveGreeting called");
         return ResponseEntity.ok(greetingService.saveGreeting(dto));
     }
+
+    // UC5: Find by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<GreetingEntity> findGreetingById(@PathVariable Long id) {
+        logger.debug("UC5: findGreetingById called with id={}", id);
+        return greetingService.findGreetingById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
