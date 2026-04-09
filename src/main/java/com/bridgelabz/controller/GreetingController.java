@@ -63,4 +63,12 @@ public class GreetingController {
         logger.debug("UC6: listAllGreetings called");
         return ResponseEntity.ok(greetingService.listAllGreetings());
     }
+
+    // UC7: Edit greeting
+    @PutMapping("/{id}")
+    public ResponseEntity<GreetingEntity> editGreeting(@PathVariable Long id,
+                                                       @RequestBody GreetingDTO dto) {
+        logger.debug("UC7: editGreeting called with id={}", id);
+        return ResponseEntity.ok(greetingService.editGreeting(id, dto));
+    }
 }
