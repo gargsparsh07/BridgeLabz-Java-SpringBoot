@@ -1,5 +1,6 @@
 package com.bridgelabz.controller;
 
+import com.bridgelabz.dto.GreetingDTO;
 import com.bridgelabz.service.GreetingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,5 +29,12 @@ public class GreetingController {
     public ResponseEntity<String> getHelloWorld() {
         logger.debug("UC2: getHelloWorld called");
         return ResponseEntity.ok(greetingService.getGreetingMessage());
+    }
+
+    // UC3: Greeting with name
+    @PostMapping("/name")
+    public ResponseEntity<String> getGreetingWithName(@RequestBody GreetingDTO dto) {
+        logger.debug("UC3: getGreetingWithName called");
+        return ResponseEntity.ok(greetingService.getGreetingMessage(dto));
     }
 }
