@@ -6,31 +6,50 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class EmployeePayrollService implements IEmployeePayrollService {
 
+    // UC3 - actual list storage
+    private List<EmployeePayrollData> employeePayrollList = new ArrayList<>();
+    private AtomicInteger idCounter = new AtomicInteger(0);
+
     @Override
     public List<EmployeePayrollData> getEmployeePayrollData() {
-        return new ArrayList<>();
+        return employeePayrollList;
     }
 
     @Override
     public EmployeePayrollData getEmployeePayrollDataById(int empId) {
-        return new EmployeePayrollData(empId, "Dummy", 0.0);
+        return employeePayrollList.stream()
+                .filter(emp -> emp.id == empId)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO empPayrollDTO) {
-        return new EmployeePayrollData(0, empPayrollDTO.name, empPayrollDTO.salary);
+        EmployeePayrollData empData = new EmployeePayrollData(
+                idCounter.incrementAndGet(),
+                empPayrollDTO.name,
+                empPayrollDTO.salary);
+        employeePayrollList.add(empData);
+        return empData;
     }
 
     @Override
     public EmployeePayrollData updateEmployeePayrollData(int empId, EmployeePayrollDTO empPayrollDTO) {
-        return new EmployeePayrollData(empId, empPayrollDTO.name, empPayrollDTO.salary);
+        EmployeePayrollData empData = getEmployeePayrollDataById(empId);
+        if (empData != null) {
+            empData.name = empPayrollDTO.name;
+            empData.salary = empPayrollDTO.salary;
+        }
+        return empData;
     }
 
     @Override
     public void deleteEmployeePayrollData(int empId) {
+        employeePayrollList.removeIf(emp -> emp.id == empId);
     }
 }
